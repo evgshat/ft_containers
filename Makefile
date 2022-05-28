@@ -1,10 +1,10 @@
 NAME	= ft_containers
-SRCS	= main.cpp
+SRCS	= test_for_stack.cpp
 OBJ		= $(SRCS: cpp=.o)
 CC		= c++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 RM		= rm -f
-HEADERS = ft_vector.hpp
+HEADERS = ft_stack.hpp
 
 $(NAME):	$(OBJ)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJ)
