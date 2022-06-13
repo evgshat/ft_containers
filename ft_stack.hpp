@@ -10,15 +10,26 @@
 
 #include <vector>
 #include <stack>
+#include <deque>
 
-template <class _T, class _Container>
-class ft_stack : public std::vector<int>
+template <class _T, class _Container = std::deque<_T> >
+class ft_stack
 {
 	public:
-		_T val;
+		typedef _T			value_type;
+		typedef _Container	container_type;
+	protected:
+		container_type c;
 	public:
-		// ft_stack(_T type, _Container& container): val(type) {};
-		ft_stack(_T type): val(type) {};
+		ft_stack() {}
+		void push(const value_type& other) { c.push_back(other); }
+		bool empty() const { c.empty(); }
+		value_type top() {return c.back();} // обязательна ссылка в возвращаемом значении?
+		// ft_stack(const ft_stack &other) : c(other.c) {}
+		size
+
+
+
 };
 
 #endif
