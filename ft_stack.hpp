@@ -20,6 +20,7 @@ class ft_stack
 		typedef _T			value_type;
 		typedef _Container	container_type;
 		typedef size		size_type;
+		// нужны ли reference и const_reference?
 	protected:
 		container_type c;
 	public:
@@ -101,3 +102,5 @@ bool operator>= (const ft_stack<_T1, _Container1>& st1, const ft_stack<_T1, _Con
 }
 
 #endif
+
+//деструктор?

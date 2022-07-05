@@ -1,4 +1,4 @@
-#include "ft_stack.hpp"
+#include "ft_containers.hpp"
 #include <iostream>
 #include <vector>
 #include <deque>
@@ -16,13 +16,11 @@ void test1()
 	std::cout<< d[1] <<std::endl;
 
 	ft_stack<int> st;
-	st.push(222);
-	std::cout<< st.top() <<std::endl;
+	st.ft_push(222);
+	std::cout<< st.ft_top() <<std::endl;
 }
 
 int main()
 {
-	// std::cout<< "ft_stack.val" <<std::endl;
-	test1();
-	// test0();
+	// test for stack
 }
