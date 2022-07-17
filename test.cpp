@@ -15,7 +15,7 @@ void test1()
 	std::cout<< st.ft_top() <<std::endl;
 }
 
-void main()
+int main()
 {
 	test1();
 	return 0;
