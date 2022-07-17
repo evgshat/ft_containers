@@ -19,7 +19,7 @@ class ft_stack
 	public:
 		typedef _T			value_type;
 		typedef _Container	container_type;
-		typedef size		size_type;
+		typedef size_t		size_type;
 		// нужны ли reference и const_reference?
 	protected:
 		container_type c;
@@ -34,7 +34,7 @@ class ft_stack
 		{
 			return c.size();
 		}
-		value_type& ft_top() const
+		value_type& ft_top()
 		{
 			return c.back();
 		}
@@ -54,10 +54,10 @@ class ft_stack
 
 		template <class _T1, class _Container1>
 		// что такое friend?
-		friend bool operator== (const stack<_T1, _Container1>& st1, const stack<_T1, _Container1>& st2);
+		friend bool operator== (const ft_stack<_T1, _Container1>& st1, const ft_stack<_T1, _Container1>& st2);
 
 		template <class _T1, class _Container1>
-		friend bool operator< (const stack<_T1, _Container1>& st1, const stack<_T1, _Container1>& st2);
+		friend bool operator< (const ft_stack<_T1, _Container1>& st1, const ft_stack<_T1, _Container1>& st2);
 };
 
 // почему внутри класса писали те же шаблонные ф-ии? потому что там friend - зачем он?
