@@ -2,10 +2,10 @@ name: ft_containers
 on:
     push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 jobs:
   run_application_mac:
     runs-on: macos-10.15
