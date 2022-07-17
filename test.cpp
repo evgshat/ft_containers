@@ -3,6 +3,14 @@
 #include <vector>
 #include <deque>
 
+void test_iterator_traits()
+{
+	typedef ft::iterator_traits<int*> traits;
+
+	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+		std::cout << "int* is a random-access iterator";
+}
+
 void test1()
 {
 	// int a;
