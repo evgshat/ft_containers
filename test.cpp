@@ -26,5 +26,6 @@ void test1()
 int main()
 {
 	test1();
+	test_iterator_traits();
 	return 0;
 }
