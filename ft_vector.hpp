@@ -4,18 +4,18 @@
 #include <iostream>
 
 // залезть в std::allocator
-template <class T, class Allocator = std::allocator<T>>
+template <class T, class Allocator = std::allocator<T> >
 class ft_vector
 {
 	public:
-		typedef T							value_type;
-		typedef Allocator					allocator_type;
-		typedef std::size_t					size_type;
-		typedef std::ptrdiff_t				difference_type; // могу использовать int?
-		typedef value_type&					reference;
-		typedef const value_type&			const_reference;
-		typedef Allocator::pointer			pointer;
-		typedef Allocator::const_pointer	const_pointer;
+		typedef T									value_type;
+		typedef Allocator							allocator_type;
+		typedef std::size_t							size_type;
+		typedef std::ptrdiff_t						difference_type; // могу использовать int?
+		typedef value_type&							reference;
+		typedef const value_type&					const_reference;
+		typedef typename Allocator::pointer			pointer; // или правильнее написать allocator_type::pointer pointer? есть ли разница?
+		typedef typename Allocator::const_pointer	const_pointer;
 		// добавить итераторы
 
 										// constructors
@@ -77,7 +77,7 @@ class ft_vector
 		{
 			this->vallocate(size_v);
 			for (size_type i = 0; i < size_v; ++i, ++this->pend, ++v_begin)
-				this->alloc.construct(this->pend, *x_begin);
+				this->alloc.construct(this->pend, *v_begin);
 		}
 	}
 
@@ -101,7 +101,7 @@ class ft_vector
 	}
 	// ft_resize
 	template<class T, class Allocator>
-	void ft_vector<T, Allocator>::ft_resize(size_type n, value_type val = value_type())
+	void ft_vector<T, Allocator>::ft_resize(size_type n, value_type val)
 	{
 		size_t size = this->pend - this->pbegin;
 		if (size == n)
@@ -130,6 +130,7 @@ class ft_vector
 	bool ft_vector<T, Allocator>::ft_empty() const
 	{
 		return this->pbegin == this->pend;
+		// можно ли сделать через проверку начального указателя на налл? или при выделении памяти указатель уже указывает куда-то
 	}
 	// ft_reserve - Request a change in capacity
 	template<class T, class Allocator>
@@ -175,7 +176,7 @@ class ft_vector
 	typename ft_vector<T, Allocator>::reference
 	ft_vector<T, Allocator>::at(size_type n)
 	{
-		if (n >= static_cast<size_type>(this->pend - rhis->pbegin))
+		if (n >= static_cast<size_type>(this->pend - this->pbegin))
 			throw std::out_of_range("vector");
 		return this->pbeginp[n]; // как работает?
 	}
@@ -211,7 +212,7 @@ class ft_vector
 	template<class T, class Allocator>
 	void ft_vector<T, Allocator>:: ft_vallocate(size_type n)
 	{
-		if (2 * n > max_size())
+		if (2 * n > ft_max_size())
 			throw std::length_error("vector");
 		this->pbegin = this->pend = this->alloc.allocate(2 * n);
 		pcapacity = pbegin + 2 * n;
