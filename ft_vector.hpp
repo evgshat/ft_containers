@@ -10,14 +10,15 @@ namespace ft
 	class vector
 	{
 		public:
-			typedef T									value_type;
-			typedef Allocator							allocator_type;
-			typedef std::size_t							size_type;
-			typedef std::ptrdiff_t						difference_type; // могу использовать int?
-			typedef value_type&							reference;
-			typedef const value_type&					const_reference;
-			typedef typename Allocator::pointer			pointer; // или правильнее написать allocator_type::pointer pointer? есть ли разница?
-			typedef typename Allocator::const_pointer	const_pointer;
+			typedef T												value_type;
+			typedef Allocator										allocator_type;
+			typedef std::size_t										size_type;
+			typedef std::ptrdiff_t									difference_type; // могу использовать int?
+			typedef value_type&										reference;
+			typedef const value_type&								const_reference;
+			typedef typename Allocator::pointer						pointer; // или правильнее написать allocator_type::pointer pointer? есть ли разница?
+			typedef typename Allocator::const_pointer				const_pointer;
+			typedef typename std::iterator_traits<pointer>::pointer	iterator;
 			// добавить итераторы
 
 											// constructors
@@ -50,8 +51,8 @@ namespace ft
 			reference back();
 			const_reference back() const;
 											// modifiers
-			template<class InoutIterator>
-			typename enable_if<!is_integral<InputIterator>::value, void>::type // синтаксис
+			template<class InputIterator>
+			typename std::enable_if<!std::is_integral<InputIterator>::value, void>::type // синтаксис, у Дани нет std:: перед is_inetgral и перед enable_if
 			assign(InputIterator first, InputIterator last);
 			// assigns values to the container
 			void assign(size_type n, const value_type& val);
@@ -60,7 +61,7 @@ namespace ft
 			iterator insert(iterator pos, const value_type& val);
 			void insert(iterator pos, size_type n, const value_type& val);
 			template<class InputIterator>
-			typename enable_if<!is_integral<InputIterator>::value, void>::type
+			typename std::enable_if<!std::is_integral<InputIterator>::value, void>::type
 			insert(iterator pos, InputIterator first, InputIterator last);
 			iterator erase(iterator position);
 			iterator erase(iterator first, iterator last);
@@ -259,8 +260,8 @@ namespace ft
 		// assign
 		template<class T, class Allocator>
 		template<class InputIterator>
-		typename enable_if<!is_integral<InputIterator>::value, void>::type
-		void vector<T, Allocator>::assign(InputIterator first, InputIterator last)
+		typename std::enable_if<!std::is_integral<InputIterator>::value, void>::type
+		vector<T, Allocator>::assign(InputIterator first, InputIterator last) // поч не надо void?
 		{
 			this->clear();
 			for(; first != last; ++first)
@@ -278,7 +279,11 @@ namespace ft
 		template<class T, class Allocator>
 		void vector<T, Allocator>::push_back(const value_type& val)
 		{
-
+			size_type cap = this->pcapacity - this->pbegin;
+			if (this->pend == this->capacity)
+				this->reserve(2 * (cap > 0 ? cap : 1));
+			this->alloc.construct(this->pend, val);
+			++this->pend;
 		}
 		// pop_back
 		template<class T, class Allocator>
@@ -287,15 +292,13 @@ namespace ft
 			this->alloc.destroy(this->pend - 1); // как работает destroy?
 			--this->pend;
 		}
-		// insert
-		template<class T, class Allocator>
-		typename vector<T, Allocator>::iterator iterator // у Дани так: typename vector<T, Allocator>::iterator
-		vector<T, Allocator>::insert(iterator pos, const value_type& val)
-		{
+		// // insert
+		// template<class T, class Allocator>
+		// typename vector<T, Allocator>::iterator // у Дани так: typename vector<T, Allocator>::iterator, почему не так? typename vector<T, Allocator>::iterator iterator
+		// vector<T, Allocator>::insert(iterator pos, const value_type& val)
+		// {
 
-		}
-
-/***********************************************************************************************************************/
+		// }
 
 /***********************************************************************************************************************/
 

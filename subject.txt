@@ -80,3 +80,44 @@ std::vector<std::string> vec;
 
 this - указатель на текущий объект данного класса, через него внутри класса можно обратиться к любым членам
 std::is_integral - проверяет, является ли тип целочисленным
+
+классы и шаблоны в <type_traits> используются для поддержки вывода типов, классификации и преобразования во время компиляции
+вообще, traits переводиться как "свойства"
+Другое название "класс свойств" - это класс, используемый вместо параметров шаблона. В качестве класса он объединяет полезные типы и констнаты;
+как шаблон, он является средством для обеспечения того "дополнительного уровня косвенности", который решает все проблемы программного обеспечения
+Пример:
+ можно реализовать сл.шаблонный класс:
+template<typename T,
+		 typename ArgT      = const T&,
+		 typename RefT      = T&,
+		 typename ConstRefT = const T&>
+class vector
+{
+	...
+	public:
+	 typedef T		value_type;
+	 typedef argT	arg_type;
+	 typedef RefT	reference;
+	 typedef ConstRefT	const_reference;
+}
+это не всегда удобно, поэтому создают класс "класс свойств":
+template<typename T>
+class elem_traits
+{
+	...
+	public:
+	 typedef const T&	arg_type;
+	 typedef 	   T&	reference;
+	 typedef const T&	const_referecnce;
+}
+... и далее, вышеописанные класс свойст можно использовать в параметрах шаблона, например:
+template<typename T, typename traits = elem_traits<T>>
+class vector
+{
+	typedef T	value_type;
+	typedef typename traits::arg_type			arg_type;
+	typedef typename traits::reference			reference;
+	typedef typename traits::const_reference	const_reference;
+}
+тогда, если мы создадим
+vector<int> vec1 - то это будет эквивалентно vector<int, elem_traits<int> >

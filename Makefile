@@ -5,7 +5,7 @@ OBJ		= $(SRCS: cpp=.o)
 CC		= clang++
 FLAGS	= -Wall -Wextra -Werror -std=c++98
 RM		= rm -f
-HEADERS = ft_stack.hpp ft_vector.hpp ft_iterator.hpp ft_containers.hpp
+HEADERS = ft_stack.hpp ft_vector.hpp ft_iterator.hpp ft_containers.hpp ft_type_traits.hpp
 
 $(NAME):	$(OBJ)
 			$(CC) $(FLAGS) -o $(NAME) $(OBJ)
