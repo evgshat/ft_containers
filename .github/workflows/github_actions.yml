@@ -7,4 +7,4 @@ jobs:
       - uses: actions/checkout@v3
       - run: make
       - run: make -C unit_tests
-      - run: ./test
+      - run: ./unit_tests/test
