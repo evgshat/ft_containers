@@ -1,8 +1,9 @@
 NAME = test
-SRCS = test.cpp
+SRCS = test.cpp \
+		test_iterator_traits.cpp
 OBJS = $(patsubst %.cpp, %.o, $(SRCS))
 TEST_HEADERS = test.hpp
-PROJECTS_HEADERS = ft_containers.hpp
+PROJECTS_HEADERS = ft_iterator.hpp
 PROJECT_DIR = $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))/..))
 FLAGS = -Wall -Werror -Wextra -std=c++17 -g
 CC = clang++
@@ -14,7 +15,7 @@ $(NAME): $(OBJS)
 	$(CC) $(FLAGS) -I $(PROJECT_DIR) $(OBJS) -o $@
 
 %.o: %.cpp $(TEST_HEADERS) Makefile
-	$(CC) $(FLAGS) -I $(PROJECT_DIR) -c $< -c $@
+	$(CC) $(FLAGS) -I $(PROJECT_DIR) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
