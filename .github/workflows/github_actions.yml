@@ -6,4 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: make
-      - run: clang++ -Wall -Wextra -Werror -std=c++11 test.cpp
+      - run: make -C unit_tests
+      - run: ./unit_tests/test

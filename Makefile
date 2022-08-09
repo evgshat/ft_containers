@@ -1,5 +1,5 @@
 NAME	= ft_containers
-SRCS	= test.cpp
+SRCS	= main.cpp
 
 OBJ		= $(SRCS: cpp=.o)
 CC		= clang++
