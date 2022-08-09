@@ -5,8 +5,6 @@ jobs:
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v3
-      - name: Compile project
       - run: make
-      - name: Run unit tests
       - run: make -C unit_tests
       - run: ./test
