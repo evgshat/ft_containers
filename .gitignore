@@ -2,3 +2,5 @@
 *.o
 .idea
 ft_containers
+unit_tests/test
+unit_tests/*.o
